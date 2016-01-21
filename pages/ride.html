@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../custom/metisMenu/dist/metisMenu.min.css">
+  <link rel="stylesheet" href="../custom/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="../custom/datatables-responsive/css/dataTables.responsive.css">
+  <link rel="stylesheet" href="../custom/datatables-responsive/css/responsive.bootstrap.min.css">
+  <link rel="stylesheet" href="../custom/dist/css/sb-admin-2.css">
+  <link rel="stylesheet" href="../custom/font-awesome-4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../custom/css/custom.css">
+  <script src="../custom/js/angular.min.js"></script>
+  <script src="../jquery/jquery-2.1.4.min.js"></script>
+  <script src="../custom/jquery/dist/jquery.min.js"></script>
+  <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+  <script src="../custom/metisMenu/dist/metisMenu.min.js"></script>
+  <script src="../custom/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="../custom/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+  <script src="../custom/datatables-responsive/js/dataTables.responsive.js"></script>
+  <script src="../custom/dist/js/sb-admin-2.js"></script>
+  <script src="../custom/js/controller.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#rideOfferTable').DataTable({
+            "pagingType": "simple",
+            "columnDefs": [
+                { "width": "15%", "targets": 6 }, 
+                { "width": "15%", "targets": 7 } 
+            ]
+        });
+        $('#rideRequestTable').DataTable({
+            "pagingType": "simple",
+            "columnDefs": [
+                { "width": "15%", "targets": 5 }, 
+                { "width": "15%", "targets": 6 }
+            ]
+        });
+		$('#joinTable').DataTable({
+            "pagingType": "simple",
+            "columnDefs": [
+                { "width": "15%", "targets": 4 }, 
+                { "width": "15%", "targets": 5 }
+            ]
+        });
+    });
+  </script>
+  <!-- for popup form -->
+  <script>
+	$('#myModal').on('shown.bs.modal', function () {
+	  $('#myInput').focus()
+	})
+  </script>
+</head>
+<body>
+
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top a-navbar-header" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle a-navbar-button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span class="a-navbar-header-text">Ridesharing 2.0 Admin Panel</span></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse a-navbar-header">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="ride.html"><i class="fa fa-car"></i> Ride Info</a>
+                        </li>
+                        <li>
+                            <a href="users.html"><i class="glyphicon glyphicon-user"></i> Users</a>
+                        </li>
+						<li>
+                            <a href="vehicle.html"><i class="glyphicon glyphicon-credit-card"></i> Vehicle</a>
+                        </li>
+						<li>
+                            <a href="uploadExcel.html"><i class="fa fa-cloud-upload"></i> Upload Data</a>
+                        </li>
+                        <li>
+                            <a href="../index.html"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <br>
+                    <div class="col-lg-12">
+                        
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+                <div class="row" ng-app="rideApp">
+                    <div class="col-lg-12">
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                <i class="fa fa-car"></i> Ride Offer
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="dataTable_wrapper" ng-controller="rideOfferCtrl">
+                                    <table class="table table-striped table-bordered table-hover dt-responsive" id="rideOfferTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Username</th>
+                                                <th>Current Location</th>
+                                                <th>Destination</th>
+                                                <th>Available Seats</th>
+                                                <th>Gender Preference</th>
+                                                <th>Timestamp</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="offer in offers">
+                                                <td>{{ offer.id }}</td>
+                                                <td>{{ offer.username }}</td>
+                                                <td>{{ offer.initLoc }}</td>
+                                                <td>{{ offer.destination }}</td>
+                                                <td>{{ offer.availableSeats }}</td>
+                                                <td>{{ offer.genderPref }}</td>
+                                                <td>{{ offer.timestamp }}</td>
+                                                <td>
+												<!--<a href="#"><i class="fa fa-edit fa-lg"></i>&nbsp;Edit</a>
+												-->
+												&nbsp;<a href="#"><i class="fa fa-remove fa-lg"></i>&nbsp;Remove</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-default btn-circle btn-lg"  data-toggle="modal" data-target="#addRideOffer"><i class="fa fa-plus"></i></button>
+                                    </div>
+										<!-- Modal for add ride offer -->
+										<div class="modal fade" id="addRideOffer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										  <div class="modal-dialog" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">										
+												<h4 class="modal-title" id="myModalLabel">Add Ride Offer</h4>
+											  </div>
+											  <div class="modal-body">
+													<form>
+														<div class="form-group row">
+															<label for="inputId" class="col-sm-4 text-right form-control-label">Id</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputId" id="inputId" placeholder="Enter ID" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputUsername" class="col-sm-4 text-right  form-control-label">Username</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputUsername" id="inputUsername" placeholder="Enter Username" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputCurrLocation" class="col-sm-4 text-right  form-control-label">Current Location</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputCurrLocation" id="inputCurrLocation" placeholder="Enter Current Location" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputDest" class="col-sm-4 text-right  form-control-label">Destination</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputDest" id="inputDest" placeholder="Enter Destination" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputAvaSeats" class="col-sm-4 text-right  form-control-label">Available Seats</label>									
+															<div class="input col-sm-8">
+																<select class="inputAvaSeats form-control  col-sm-8" name="inputAvaSeats" id="inputAvaSeats"  required="required">
+																	<option value="" disabled="" selected="">Select Seats Number</option>
+																	<option value="1">1</option>
+																	<option value="2<">2</option>
+																	<option value="3">3</option>
+																	<option value="4<">4</option>
+																	<option value="5">5</option>
+																	<option value="6">6</option>
+																	<option value="7">7</option>
+																</select>
+															</div>
+															
+														</div>
+														<div class="form-group row">
+															<label for="inputGenderPref" class="col-sm-4 text-right  form-control-label">Gender Preference</label>
+															<div class="input col-sm-8">
+																<select class="inputGender form-control  col-sm-8" name="inputGender" id="inputGender"  required="required">
+																	<option value="-" selected="">No preference</option>
+																	<option value="F">Female</option>
+																	<option value="M<">Male</option>
+																</select>
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputTime" class="col-sm-4 text-right  form-control-label">Timestamp</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputTime" id="inputTime" placeholder="Enter Timestamp" required="required">
+															</div>
+														</div>
+													</form>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-primary">Add Ride Offer</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+									</div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+
+                    <div class="col-lg-12">
+                        <div class="panel panel-danger">
+                            <div class="panel-heading">
+                                <i class="fa fa-street-view"></i> Ride Request
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="dataTable_wrapper" ng-controller="rideRequestCtrl">
+                                    <table class="table table-striped table-bordered table-hover dt-responsive" id="rideRequestTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Username</th>
+                                                <th>Init Location</th>
+                                                <th>Destination</th>
+                                                <th>Gender Preference</th>
+                                                <th>Timestamp</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="request in requests">
+                                                <td>{{ request.id }}</td>
+                                                <td>{{ request.username }}</td>
+                                                <td>{{ request.initLoc }}</td>
+                                                <td>{{ request.destination }}</td>
+                                                <td>{{ request.genderPref }}</td>
+                                                <td>{{ request.timestamp }}</td>
+                                                <td>
+												<!--<a href="#"><i class="fa fa-edit fa-lg"></i>&nbsp;Edit</a>
+												-->
+												&nbsp;<a href="#"><i class="fa fa-remove fa-lg"></i>&nbsp;Remove</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-default btn-circle btn-lg" data-toggle="modal" data-target="#addRideRequest"><i class="fa fa-plus"></i></button>
+                                    </div>
+									<!-- Modal for add ride request -->
+										<div class="modal fade" id="addRideRequest" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+										  <div class="modal-dialog" role="document">
+											<div class="modal-content">
+											  <div class="modal-header">
+												<h4 class="modal-title" id="myModalLabel">Add Ride Request</h4>
+											  </div>
+											  <div class="modal-body">
+													<form>
+														<div class="form-group row">
+															<label for="inputId" class="col-sm-4 text-right form-control-label">Id</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputId" id="inputId" placeholder="Enter ID" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputUsername" class="col-sm-4 text-right form-control-label">Username</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputUsername" id="inputUsername" placeholder="Enter Username" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputInitLocation" class="col-sm-4 text-right form-control-label">Init Location</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputInitLocation" id="inputInitLocation" placeholder="Enter Init Location" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputDest" class="col-sm-4 text-right form-control-label">Destination</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputDest" id="inputDest" placeholder="Enter Destination" required="required">
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputGenderPref" class="col-sm-4 text-right form-control-label">Gender Preference</label>
+															<div class="input col-sm-8">
+															<select class="inputGender form-control  col-sm-8" name="inputGender" id="inputGender"  required="required">
+																<option value="-" selected="">No preference</option>
+																<option value="F">Female</option>
+																<option value="M<">Male</option>
+															</select>
+															</div>
+														</div>
+														<div class="form-group row">
+															<label for="inputTime" class="col-sm-4 text-right form-control-label">Timestamp</label>
+															<div class="input col-sm-8">
+																<input type="text" class="form-control" name="inputTime" id="inputTime" placeholder="Enter Timestamp" required="required">
+															</div>
+														</div>
+													</form>
+											  </div>
+											  <div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+												<button type="button" class="btn btn-primary">Add Ride Request</button>
+											  </div>
+											</div>
+										  </div>
+										</div>
+									
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+					
+					<div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-street-view"></i> Join
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="dataTable_wrapper" ng-controller="joinCtrl">
+                                    <table class="table table-striped table-bordered table-hover dt-responsive" id="joinTable" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Driver Id</th>
+                                                <th>Passenger Id</th>
+                                                <th>Timestamp</th>
+                                                <th>Match Icon</th>
+                                                <th>Finished</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="join in joins">
+                                                <td>{{ join.driverId }}</td>
+                                                <td>{{ join.memberId }}</td>
+                                                <td>{{ join.timestamp }}</td>
+                                                <td>{{ join.match_icon }}</td>
+                                                <td>{{ join.finished }}</td>
+                                                <td>
+												<!--<a href="#"><i class="fa fa-edit fa-lg"></i>&nbsp;Edit</a>
+												-->
+												&nbsp;<a href="#"><i class="fa fa-remove fa-lg"></i>&nbsp;Remove</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>									
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+
+                </div>
+
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+</html>

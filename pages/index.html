@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../custom/metisMenu/dist/metisMenu.min.css">
+  <link rel="stylesheet" href="../custom/dist/css/sb-admin-2.css">
+  <link rel="stylesheet" href="../custom/morrisjs/morris.css">
+  <link rel="stylesheet" href="../custom/dist/css/timeline.css">
+  <link rel="stylesheet" href="../custom/font-awesome-4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../custom/css/custom.css">
+  <script src="../custom/js/angular.min.js"></script>
+  <script src="../jquery/jquery-2.1.4.min.js"></script>
+  <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+  <script src="../custom/metisMenu/dist/metisMenu.min.js"></script>
+  <script src="../custom/raphael/raphael-min.js"></script>
+  <script src="../custom/morrisjs/morris.min.js"></script>
+  <script src="../custom/js/morris-data.js"></script>
+  <script src="../custom/dist/js/sb-admin-2.js"></script>
+  <script src="../custom/js/controller.js"></script>
+</head>
+<body>
+
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top a-navbar-header" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle a-navbar-button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span class="a-navbar-header-text">Ridesharing 2.0 Admin Panel</span></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse a-navbar-header">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="ride.html"><i class="fa fa-car"></i> Ride Info</a>
+                        </li>
+                        <li>
+                            <a href="users.html"><i class="glyphicon glyphicon-user"></i> Users</a>
+                        </li>
+						<li>
+                            <a href="vehicle.html"><i class="glyphicon glyphicon-credit-card"></i> Vehicle</a>
+                        </li>
+						<li>
+                            <a href="uploadExcel.html"><i class="fa fa-cloud-upload"></i> Upload Data</a>
+                        </li>
+                        <li>
+                            <a href="../index.html"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <br>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-users fa-4x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">24</div>
+                                        <div>New Users</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="users.html">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-car fa-4x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">46</div>
+                                        <div>New Ride Offers</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="ride.html">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-street-view fa-4x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">54</div>
+                                        <div>New Ride Requests</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="ride.html">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-road fa-4x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge">33</div>
+                                        <div>Matched Pairs</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="ride.html">
+                                <div class="panel-footer">
+                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Ride Offer and Request
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div id="offerRequestChart"></div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <i class="fa fa-pie-chart fa-fw"></i> Users
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <h4 class="text-center">Total number: 381</h4>
+                                <div class="col-lg-8">
+                                    <div id="usersChart"></div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div id="users2Chart"></div>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <i class="fa fa-clock-o fa-fw"></i> Timeline
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body" ng-app="timelineApp" ng-controller="timelineCtrl">
+                                <ul class="timeline">
+                                    <li ng-repeat="e in events" ng-class="{'timeline-inverted': e.type == 'Request'}">
+                                        <div ng-class="{'timeline-badge warning': e.type == 'Offer', 'timeline-badge danger': e.type == 'Request'}">
+                                            <i ng-class="{'fa fa-car': e.type == 'Offer', 'fa fa-street-view': e.type == 'Request'}"></i>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <h4 class="timeline-title">{{ e.username }}</h4>
+                                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ e.time }}</small>
+                                                </p>
+                                            </div>
+                                            <div class="timeline-body">
+                                                <h5>From: {{ e.from }}</h5><h5>To: {{ e.to }}</h5>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="text-center">
+                                    <a href="ride.html">
+                                        <button type="button" class="btn btn-default btn-circle btn-lg"><i class="fa fa-ellipsis-h"></i></button>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+</html>

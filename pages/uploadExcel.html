@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Admin Panel</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../custom/metisMenu/dist/metisMenu.min.css">
+  <link rel="stylesheet" href="../custom/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="../custom/datatables-responsive/css/dataTables.responsive.css">
+  <link rel="stylesheet" href="../custom/datatables-responsive/css/responsive.bootstrap.min.css">
+  <link rel="stylesheet" href="../custom/dist/css/sb-admin-2.css">
+  <link rel="stylesheet" href="../custom/font-awesome-4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../custom/css/custom.css">
+  <script src="../custom/js/angular.min.js"></script>
+  <script src="../jquery/jquery-2.1.4.min.js"></script>
+  <script src="../custom/jquery/dist/jquery.min.js"></script>
+  <script src="../bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+  <script src="../custom/metisMenu/dist/metisMenu.min.js"></script>
+  <script src="../custom/datatables/media/js/jquery.dataTables.min.js"></script>
+  <script src="../custom/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+  <script src="../custom/datatables-responsive/js/dataTables.responsive.js"></script>
+  <script src="../custom/dist/js/sb-admin-2.js"></script>
+  <script src="../custom/js/controller.js"></script>
+  <!-- reader by https://gist.github.com/psjinx -->
+  <script src="../custom/js/xlsx-reader.js"></script>
+  <!-- for excel upload-->
+  <script>
+  function() {
+    $("#xlsxFile").change(function(event) {
+        var file = this.files[0],
+            sheets;
+        XLSXReader(file, true, function(xlsxData) {
+            sheets = xlsxData.sheets;
+            // Do somehting with sheets. It's a
+            // Javascript object with sheet names
+            // as keys and data as value in form of 2D array
+        });
+    });
+	}
+  </script>
+  <!-- check browser type-->
+  <script>
+		window.onload =  function() { 
+			var x;
+			 if(navigator.userAgent.indexOf("Chrome") != -1 || navigator.userAgent.indexOf("Firefox") != -1 )
+			{x = "You may upload an excel file for data upload.";}
+			else 
+			{
+			   x = "Your browser may not support this excel file upload function. Please try with Google Chrome or Mozilla Firefox. Thank you.";
+			}
+			document.getElementById("browserCheck").innerHTML = x;
+		}
+	</script>
+	<!-- confirm upload -->
+	<script type='text/javascript'>
+	$(document).ready(function(){
+		$('#upload').click(function(){
+				if (confirm("Are you sure you want to upload?") == true) 
+				{
+					;
+				} else {
+					;
+				}
+		}) 
+	});
+	</script>
+
+</head>
+<body>
+
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top a-navbar-header" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle a-navbar-button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><span class="a-navbar-header-text">Ridesharing 2.0 Admin Panel</span></a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse a-navbar-header">
+                    <ul class="nav" id="side-menu">
+                        <li>
+                            <a href="index.html"><i class="glyphicon glyphicon-dashboard"></i> Dashboard</a>
+                        </li>
+                        <li>
+                            <a href="ride.html"><i class="fa fa-car"></i> Ride Info</a>
+                        </li>
+                        <li>
+                            <a href="users.html"><i class="glyphicon glyphicon-user"></i> Users</a>
+                        </li>
+						<li>
+                            <a href="vehicle.html"><i class="glyphicon glyphicon-credit-card"></i> Vehicle</a>
+                        </li>
+						<li>
+                            <a href="uploadExcel.html"><i class="fa fa-cloud-upload"></i> Upload Data</a>
+                        </li>
+                        <li>
+                            <a href="../index.html"><i class="glyphicon glyphicon-log-out"></i> Logout</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+		<!-- / Navigation -->
+		
+		<!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <br>
+                    <div class="col-lg-12">
+                        
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-cloud-upload"></i> Upload an excel workbook
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <div class="dataTable_wrapper">
+                                    <div>
+										<p id="browserCheck"></p>
+									</div>
+                                    
+									<div ng-app="App" ng-controller="PreviewController">
+										<form action="" method="post" enctype="multipart/form-data">
+											<div class="form-group">
+											<label for="excel_file">Select an excel file <i class="fa fa-file-excel-o"></i> :</label>
+											<input class="btn btn-default" type="file" name="excel_file" accept=".xlsx" onchange="angular.element(this).scope().fileChanged(this.files);" required="true" style="width:100%">
+											</div>
+											<div class="checkbox">
+											<label>
+											<input type="checkbox" ng-model="showPreview" ng-change="showPreviewChanged();">Show preview of excel file
+											</label>
+											</div>
+											<div class="checkbox">
+											<label>
+											<input type="checkbox" ng-model="showJSONPreview">Show JSON preview of selected sheet
+											</label>
+											</div>
+											<div ng-show="isProcessing">
+											<p><span>Processing ...</span></p>
+											</div>
+											<div class="form-group">
+											<label for="sheet_name">Sheet Name</label>
+											<select id="sheet_name" class="form-control" ng-change="updateJSONString()" ng-model="selectedSheetName" required="true" ng-required="true" ng-options="sheetName as sheetName for (sheetName, sheetData) in sheets">
+											<option value="">---- Select a sheet ----</option>
+											</select>
+											</div>
+											<input type="hidden" name="sheet_name" value="{{ selectedSheetName }}">
+											<input class="btn btn-warning" type="submit" value="Preview">
+											
+											<div ng-show="showJSONPreview">
+											<h4>JSON Preview of selected sheet</h4>
+											<pre class="langauge-javascript">                        <code>{{ json_string }}</code>
+																</pre>
+											</div>
+											
+											<div ng-show="showPreview">
+												<table class="table table-bordered" ng-repeat="(sheetName, sheetData) in sheets" ng-show="sheetName == selectedSheetName">
+												<thead>
+												<tr>
+												<th ng-bind="sheetName"></th>
+												</tr>
+												</thead>
+												<tbody><tr ng-repeat="row in sheetData.data">
+												<td ng-repeat="col in row" ng-bind="col"></td>
+												</tr>
+												</tbody>
+												</table>
+											</div>
+											
+											<input class="btn btn-success" id="upload" value="Upload">
+											
+										</form>
+                                        <!--<button type="button" class="btn btn-default btn-circle btn-lg" data-toggle="modal" data-target="#addRideRequest"><i class="fa fa-plus"></i></button>-->
+                                </div>
+                                <!-- /.table-responsive -->
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+		
+<!-- /#wrapper -->
+
+</body>
+</html>

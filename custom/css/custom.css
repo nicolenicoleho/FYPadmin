@@ -1,0 +1,21 @@
+.a-navbar-header{
+	background-color: #5cb85c;
+}
+.a-navbar-header-text{
+	color: #FFFFFF;
+}
+.a-navbar-button{
+	background-color: #d6e9c6;
+}
+.sidebar ul li a{
+	background-color: #f8f8f8;
+}
+.sidebar ul li a:hover{
+	background-color: #d6e9c6;
+}
+.sidebar ul li a.active{
+	background-color: #d6e9c6;
+}
+.dataTables_filter input{ 
+	width: 180px
+}
