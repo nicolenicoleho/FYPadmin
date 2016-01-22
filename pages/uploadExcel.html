@@ -44,10 +44,10 @@
 		window.onload =  function() { 
 			var x;
 			 if(navigator.userAgent.indexOf("Chrome") != -1 || navigator.userAgent.indexOf("Firefox") != -1 )
-			{x = "You may upload an excel file for data upload.";}
+			{x = "You may upload an excel workbook for data upload.";}
 			else 
 			{
-			   x = "Your browser may not support this excel file upload function. Please try with Google Chrome or Mozilla Firefox. Thank you.";
+			   x = "Your browser may not support this excel workbook upload function. Please try with Google Chrome or Mozilla Firefox. Thank you.";
 			}
 			document.getElementById("browserCheck").innerHTML = x;
 		}
@@ -133,7 +133,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-cloud-upload"></i> Upload an excel workbook
+                                <i class="fa fa-cloud-upload"></i> Upload Data
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -168,12 +168,13 @@
 											</select>
 											</div>
 											<input type="hidden" name="sheet_name" value="{{ selectedSheetName }}">
-											<input class="btn btn-warning" type="submit" value="Preview">
+											<input class="btn btn-success id="upload" type="submit" value="Upload">
 											
 											<div ng-show="showJSONPreview">
-											<h4>JSON Preview of selected sheet</h4>
-											<pre class="langauge-javascript">                        <code>{{ json_string }}</code>
-																</pre>
+											<h4>JSON Preview of Selected Sheet</h4>
+											<pre class="langauge-javascript">
+											<code>{{ json_string }}</code>
+											</pre>
 											</div>
 											
 											<div ng-show="showPreview">
@@ -189,9 +190,6 @@
 												</tbody>
 												</table>
 											</div>
-											
-											<input class="btn btn-success" id="upload" value="Upload">
-											
 										</form>
                                         <!--<button type="button" class="btn btn-default btn-circle btn-lg" data-toggle="modal" data-target="#addRideRequest"><i class="fa fa-plus"></i></button>-->
                                 </div>
